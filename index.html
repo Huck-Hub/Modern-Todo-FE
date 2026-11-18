@@ -102,22 +102,43 @@
         .metrics-row {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.65rem;
             flex-wrap: wrap;
         }
 
         .metric-chip {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            padding: 0.45rem 0.85rem;
+            padding: 0.45rem 0.8rem;
             border-radius: var(--radius-md);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
         .metric-chip strong {
             color: var(--text-primary);
             font-weight: 600;
+        }
+
+        .btn-clear-done {
+            background: rgba(240, 68, 56, 0.1);
+            border: 1px solid rgba(240, 68, 56, 0.28);
+            color: var(--danger);
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .btn-clear-done:hover:not(:disabled) {
+            background: rgba(240, 68, 56, 0.2);
+        }
+
+        .btn-clear-done:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
         }
 
         .view-toggle {
@@ -257,22 +278,26 @@
         }
 
         /* High-Craft Task Row (List View) */
+        .task-card-wrapper {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.6rem;
+            transition: background-color var(--transition-base), border-color var(--transition-base);
+        }
+
+        .task-card-wrapper:hover {
+            background-color: var(--bg-surface-hover);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
         .task-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 0.85rem 1.1rem;
-            margin-bottom: 0.5rem;
-            transition: background-color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
-        }
-
-        .task-row:hover {
-            background-color: var(--bg-surface-hover);
-            border-color: rgba(255, 255, 255, 0.14);
+            flex-wrap: wrap;
         }
 
         .task-left {
@@ -280,6 +305,7 @@
             align-items: center;
             gap: 0.85rem;
             flex: 1;
+            min-width: 240px;
         }
 
         .task-checkbox {
@@ -290,7 +316,7 @@
         }
 
         .task-title {
-            font-size: 0.94rem;
+            font-size: 0.95rem;
             font-weight: 500;
             color: var(--text-primary);
             transition: color var(--transition-base);
@@ -304,7 +330,7 @@
         .task-right {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.55rem;
             flex-wrap: wrap;
         }
 
@@ -334,6 +360,12 @@
             color: var(--text-secondary);
         }
 
+        .overdue-badge {
+            color: var(--danger);
+            background: rgba(240, 68, 56, 0.15);
+            border-color: rgba(240, 68, 56, 0.35);
+        }
+
         .status-select {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
@@ -344,7 +376,7 @@
             cursor: pointer;
         }
 
-        .btn-delete {
+        .btn-icon {
             background: transparent;
             border: 1px solid transparent;
             color: var(--text-muted);
@@ -354,10 +386,72 @@
             transition: all var(--transition-base);
         }
 
-        .btn-delete:hover {
+        .btn-icon:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-subtle);
+        }
+
+        .btn-icon.delete:hover {
             color: var(--danger);
             background: rgba(240, 68, 56, 0.1);
             border-color: rgba(240, 68, 56, 0.25);
+        }
+
+        /* Inline Edit Drawer */
+        .edit-drawer {
+            margin-top: 0.85rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border-subtle);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 0.7fr auto auto;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .edit-drawer {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Subtasks / Checklist Section */
+        .subtasks-box {
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--radius-sm);
+            border-left: 2px solid var(--accent);
+        }
+
+        .subtask-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            padding: 0.2rem 0;
+        }
+
+        .subtask-item span.done {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .subtask-add-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.45rem;
+        }
+
+        /* Empty State Box */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: var(--bg-surface);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius-lg);
+            color: var(--text-secondary);
         }
 
         /* Kanban Board View */
@@ -416,7 +510,7 @@
 <body>
 
     <div id="app" class="app-shell">
-        <!-- Header with Live Counters and View Mode Toggle (List vs Kanban Board) -->
+        <!-- Header with Live Counters, Clear Completed Bulk Action, and View Mode Toggle -->
         <header class="top-bar">
             <div class="brand">
                 <div class="brand-logo"><i class="fa fa-check" aria-hidden="true"></i></div>
@@ -431,6 +525,15 @@
                 <div class="metric-chip">Active: <strong>{{ activeCount }}</strong></div>
                 <div class="metric-chip">Done: <strong style="color: var(--success);">{{ completedCount }}</strong></div>
                 <div class="metric-chip">Urgent (P1): <strong style="color: var(--danger);">{{ urgentCount }}</strong></div>
+
+                <button
+                    class="btn-clear-done"
+                    v-on:click="clearCompleted"
+                    v-bind:disabled="completedCount === 0"
+                    title="Remove all completed tasks"
+                >
+                    <i class="fa fa-trash" aria-hidden="true"></i> Clear Done ({{ completedCount }})
+                </button>
 
                 <div class="view-toggle">
                     <button class="view-btn" v-bind:class="{ active: viewMode === 'list' }" v-on:click="viewMode = 'list'">
@@ -454,10 +557,15 @@
             </div>
         </section>
 
-        <!-- Command Bar / Quick-Add Task Form (v-model + regex/length validation) -->
+        <!-- Command Bar / Quick-Add Task Form (supports pressing Enter key via v-on:keyup.enter) -->
         <section class="quick-add-card">
             <div class="quick-add-grid">
-                <input class="input-dark" v-model="newTask.title" placeholder="Quick add task... (e.g. Deploy Express API to Render)">
+                <input
+                    class="input-dark"
+                    v-model="newTask.title"
+                    v-on:keyup.enter="isValidTask && addTask()"
+                    placeholder="Quick add task (Press Enter to add)... e.g. Deploy Express API to Render"
+                >
 
                 <select class="select-dark" v-model="newTask.category">
                     <option value="University">University</option>
@@ -474,7 +582,7 @@
 
                 <input class="input-dark" type="date" v-model="newTask.dueDate">
 
-                <input class="input-dark" v-model="newTask.estimate" placeholder="Est. (e.g. 1h)">
+                <input class="input-dark" v-model="newTask.estimate" v-on:keyup.enter="isValidTask && addTask()" placeholder="Est. (e.g. 1h)">
 
                 <button class="btn-add" v-on:click="addTask" v-bind:disabled="!isValidTask">
                     <i class="fa fa-plus" aria-hidden="true"></i> Add Task
@@ -514,42 +622,105 @@
             </select>
         </section>
 
-        <!-- VIEW 1: High-Density List View (v-if="viewMode === 'list'") -->
-        <main v-if="viewMode === 'list'">
-            <div v-for="task in sortedTasks" class="task-row">
-                <div class="task-left">
-                    <input
-                        type="checkbox"
-                        class="task-checkbox"
-                        v-bind:checked="task.completed"
-                        v-on:change="toggleComplete(task)"
-                    >
-                    <span class="task-title" v-bind:class="{ completed: task.completed }" v-text="task.title"></span>
+        <!-- Empty State when 0 tasks match the current search/filter -->
+        <div v-if="sortedTasks.length === 0" class="empty-state">
+            <i class="fa fa-inbox" style="font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem;"></i>
+            <h3>No tasks match your current view</h3>
+            <p>Try clearing your search filter or add a new task using the command bar above.</p>
+        </div>
+
+        <!-- VIEW 1: High-Density List View (v-else-if="viewMode === 'list'") -->
+        <main v-else-if="viewMode === 'list'">
+            <div v-for="task in sortedTasks" class="task-card-wrapper">
+                <div class="task-row">
+                    <div class="task-left">
+                        <input
+                            type="checkbox"
+                            class="task-checkbox"
+                            v-bind:checked="task.completed"
+                            v-on:change="toggleComplete(task)"
+                        >
+                        <span class="task-title" v-bind:class="{ completed: task.completed }" v-text="task.title"></span>
+                    </div>
+
+                    <div class="task-right">
+                        <span class="badge-pill" v-bind:class="priorityClass(task.priority)">
+                            {{ task.priorityLabel }}
+                        </span>
+                        <span class="badge-pill">
+                            <i class="fa fa-folder-o" aria-hidden="true"></i> {{ task.category }}
+                        </span>
+
+                        <!-- Smart Due Date Badge: highlights overdue uncompleted tasks in red -->
+                        <span class="badge-pill" v-bind:class="{ 'overdue-badge': isOverdue(task) }">
+                            <i class="fa" v-bind:class="isOverdue(task) ? 'fa-exclamation-circle' : 'fa-calendar'" aria-hidden="true"></i>
+                            {{ isOverdue(task) ? 'Overdue • ' + task.dueDate : task.dueDate }}
+                        </span>
+
+                        <span class="badge-pill">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.estimate }}
+                        </span>
+
+                        <!-- Subtasks Toggle Button -->
+                        <button class="btn-icon" v-on:click="toggleSubtasksPanel(task)" title="Manage Subtasks">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            {{ completedSubtasksCount(task) }}/{{ (task.subtasks || []).length }}
+                        </button>
+
+                        <select class="status-select" v-model="task.status" v-on:change="updateStatus(task)">
+                            <option value="todo">To Do</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+
+                        <!-- Inline Edit Toggle Button -->
+                        <button class="btn-icon" v-on:click="startEdit(task)" title="Edit task">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+
+                        <!-- Delete Task Button -->
+                        <button class="btn-icon delete" v-on:click="deleteTask(task)" title="Delete task">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="task-right">
-                    <span class="badge-pill" v-bind:class="priorityClass(task.priority)">
-                        {{ task.priorityLabel }}
-                    </span>
-                    <span class="badge-pill">
-                        <i class="fa fa-folder-o" aria-hidden="true"></i> {{ task.category }}
-                    </span>
-                    <span class="badge-pill">
-                        <i class="fa fa-calendar" aria-hidden="true"></i> {{ task.dueDate }}
-                    </span>
-                    <span class="badge-pill">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i> {{ task.estimate }}
-                    </span>
-
-                    <select class="status-select" v-model="task.status" v-on:change="updateStatus(task)">
-                        <option value="todo">To Do</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="done">Done</option>
+                <!-- Inline Edit Drawer (shown when editingTaskId matches this task) -->
+                <div v-if="editingTaskId === (task._id || task.id)" class="edit-drawer">
+                    <input class="input-dark" v-model="editForm.title" v-on:keyup.enter="saveEdit(task)" placeholder="Task title">
+                    <select class="select-dark" v-model="editForm.category">
+                        <option value="University">University</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="Personal">Personal</option>
                     </select>
+                    <select class="select-dark" v-model.number="editForm.priority">
+                        <option v-bind:value="1">P1 - Urgent</option>
+                        <option v-bind:value="2">P2 - Medium</option>
+                        <option v-bind:value="3">P3 - Low</option>
+                    </select>
+                    <input class="input-dark" type="date" v-model="editForm.dueDate">
+                    <input class="input-dark" v-model="editForm.estimate" placeholder="Est.">
+                    <button class="btn-add" v-on:click="saveEdit(task)">Save</button>
+                    <button class="view-btn" v-on:click="cancelEdit">Cancel</button>
+                </div>
 
-                    <button class="btn-delete" v-on:click="deleteTask(task)" title="Delete task">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </button>
+                <!-- Subtasks Checklist Panel (shown when expandedTaskId matches this task or task has subtasks) -->
+                <div v-if="expandedTaskId === (task._id || task.id)" class="subtasks-box">
+                    <div v-for="(sub, idx) in (task.subtasks || [])" class="subtask-item">
+                        <input type="checkbox" v-bind:checked="sub.done" v-on:change="toggleSubtask(task, sub)">
+                        <span v-bind:class="{ done: sub.done }" v-text="sub.title"></span>
+                    </div>
+                    <div class="subtask-add-row">
+                        <input
+                            class="input-dark"
+                            style="padding: 0.4rem 0.65rem; font-size: 0.82rem;"
+                            v-model="newSubtaskText"
+                            v-on:keyup.enter="addSubtask(task)"
+                            placeholder="Add a subtask step and press Enter..."
+                        >
+                        <button class="view-btn active" v-on:click="addSubtask(task)">+ Step</button>
+                    </div>
                 </div>
             </div>
         </main>
@@ -569,7 +740,9 @@
                     </div>
                     <div class="task-title" v-text="task.title"></div>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
-                        <span class="badge-pill"><i class="fa fa-calendar"></i> {{ task.dueDate }}</span>
+                        <span class="badge-pill" v-bind:class="{ 'overdue-badge': isOverdue(task) }">
+                            <i class="fa fa-calendar"></i> {{ task.dueDate }}
+                        </span>
                         <button class="view-btn active" v-on:click="moveTaskStatus(task, 'in-progress')">
                             Start <i class="fa fa-arrow-right"></i>
                         </button>
@@ -607,7 +780,7 @@
                 <div v-for="task in tasksByStatus('done')" class="kanban-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <span class="badge-pill" v-bind:class="priorityClass(task.priority)">{{ task.priorityLabel }}</span>
-                        <button class="btn-delete" v-on:click="deleteTask(task)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn-icon delete" v-on:click="deleteTask(task)"><i class="fa fa-trash-o"></i></button>
                     </div>
                     <div class="task-title completed" v-text="task.title"></div>
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -621,6 +794,7 @@
 
     <script type="module">
         const BACKEND_URL = "http://localhost:3000";
+        const STORAGE_KEY = "linearflow_tasks_v1";
         const { createApp } = Vue;
 
         const DEFAULT_TASKS = [
@@ -634,7 +808,12 @@
                 status: "in-progress",
                 completed: false,
                 dueDate: "2026-11-22",
-                estimate: "2h"
+                estimate: "2h",
+                subtasks: [
+                    { title: "Verify 10+ commits in Front-End & Back-End GitHub repos", done: true },
+                    { title: "Prepare Postman GET, POST, PUT requests", done: true },
+                    { title: "Practice explaining Challenge tasks live", done: false }
+                ]
             },
             {
                 _id: "673b20010000000000000002",
@@ -645,8 +824,12 @@
                 priorityLabel: "P1 - Urgent",
                 status: "todo",
                 completed: false,
-                dueDate: "2026-11-20",
-                estimate: "45m"
+                dueDate: "2026-11-17",
+                estimate: "45m",
+                subtasks: [
+                    { title: "Whitelist 0.0.0.0/0 in Atlas Network Access", done: true },
+                    { title: "Export lessons and orders JSON from Compass", done: false }
+                ]
             },
             {
                 _id: "673b20010000000000000003",
@@ -658,7 +841,8 @@
                 status: "done",
                 completed: true,
                 dueDate: "2026-11-18",
-                estimate: "1.5h"
+                estimate: "1.5h",
+                subtasks: []
             },
             {
                 _id: "673b20010000000000000004",
@@ -670,7 +854,8 @@
                 status: "in-progress",
                 completed: false,
                 dueDate: "2026-11-21",
-                estimate: "1h"
+                estimate: "1h",
+                subtasks: []
             },
             {
                 _id: "673b20010000000000000005",
@@ -682,7 +867,8 @@
                 status: "done",
                 completed: true,
                 dueDate: "2026-11-19",
-                estimate: "30m"
+                estimate: "30m",
+                subtasks: []
             },
             {
                 _id: "673b20010000000000000006",
@@ -694,7 +880,8 @@
                 status: "todo",
                 completed: false,
                 dueDate: "2026-11-25",
-                estimate: "1h"
+                estimate: "1h",
+                subtasks: []
             },
             {
                 _id: "673b20010000000000000007",
@@ -706,23 +893,46 @@
                 status: "done",
                 completed: true,
                 dueDate: "2026-11-19",
-                estimate: "40m"
+                estimate: "40m",
+                subtasks: []
             }
         ];
 
+        function loadSavedTasks() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch (e) {}
+            return DEFAULT_TASKS.slice();
+        }
+
         const todoApp = createApp({
             data() {
+                const initial = loadSavedTasks();
                 return {
                     sitename: "LinearFlow Tasks",
                     viewMode: "list",
                     backendOnline: false,
-                    allLocalTasks: DEFAULT_TASKS.slice(),
-                    tasks: DEFAULT_TASKS.slice(),
+                    allLocalTasks: initial.slice(),
+                    tasks: initial.slice(),
                     searchQuery: "",
                     filterCategory: "all",
                     filterStatus: "all",
                     sortBy: "priority",
                     sortOrder: "ascending",
+                    editingTaskId: null,
+                    editForm: {
+                        title: "",
+                        category: "University",
+                        priority: 1,
+                        dueDate: "",
+                        estimate: ""
+                    },
+                    expandedTaskId: "673b20010000000000000001",
+                    newSubtaskText: "",
                     newTask: {
                         title: "",
                         category: "University",
@@ -739,13 +949,20 @@
                 searchQuery: "searchTasks"
             },
             methods: {
+                saveLocalBackup() {
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.allLocalTasks));
+                    } catch (e) {}
+                },
                 async fetchTasks() {
                     try {
                         const url = BACKEND_URL + "/tasks";
                         let response = await fetch(url);
                         if (response.ok) {
                             this.tasks = await response.json();
+                            this.allLocalTasks = this.tasks.slice();
                             this.backendOnline = true;
+                            this.saveLocalBackup();
                         }
                     } catch (err) {
                         this.backendOnline = false;
@@ -783,12 +1000,75 @@
                     if (Number(p) === 2) return "P2 - Medium";
                     return "P3 - Low";
                 },
+                isOverdue(task) {
+                    if (task.completed || !task.dueDate) return false;
+                    const today = new Date().toISOString().slice(0, 10);
+                    return task.dueDate < today;
+                },
                 tasksByStatus(status) {
                     return this.sortedTasks.filter(function(t) {
                         return t.status === status;
                     });
                 },
+                startEdit(task) {
+                    const id = task._id || task.id;
+                    if (this.editingTaskId === id) {
+                        this.editingTaskId = null;
+                        return;
+                    }
+                    this.editingTaskId = id;
+                    this.editForm = {
+                        title: task.title,
+                        category: task.category,
+                        priority: Number(task.priority),
+                        dueDate: task.dueDate,
+                        estimate: task.estimate
+                    };
+                },
+                cancelEdit() {
+                    this.editingTaskId = null;
+                },
+                async saveEdit(task) {
+                    if (this.editForm.title.trim().length < 3) return;
+                    const updates = {
+                        title: this.editForm.title.trim(),
+                        category: this.editForm.category,
+                        priority: Number(this.editForm.priority),
+                        priorityLabel: this.priorityLabelFor(this.editForm.priority),
+                        dueDate: this.editForm.dueDate,
+                        estimate: this.editForm.estimate.trim() || "1h"
+                    };
+                    Object.assign(task, updates);
+                    this.editingTaskId = null;
+                    this.saveLocalBackup();
+                    await this.syncTaskUpdate(task, updates);
+                },
+                toggleSubtasksPanel(task) {
+                    const id = task._id || task.id;
+                    this.expandedTaskId = (this.expandedTaskId === id) ? null : id;
+                },
+                completedSubtasksCount(task) {
+                    if (!Array.isArray(task.subtasks)) return 0;
+                    return task.subtasks.filter(function(s) { return s.done; }).length;
+                },
+                async toggleSubtask(task, sub) {
+                    sub.done = !sub.done;
+                    this.saveLocalBackup();
+                    await this.syncTaskUpdate(task, { subtasks: task.subtasks });
+                },
+                async addSubtask(task) {
+                    if (!this.newSubtaskText.trim()) return;
+                    if (!Array.isArray(task.subtasks)) task.subtasks = [];
+                    task.subtasks.push({
+                        title: this.newSubtaskText.trim(),
+                        done: false
+                    });
+                    this.newSubtaskText = "";
+                    this.saveLocalBackup();
+                    await this.syncTaskUpdate(task, { subtasks: task.subtasks });
+                },
                 async addTask() {
+                    if (!this.isValidTask) return;
                     const createdTask = {
                         _id: String(Date.now()),
                         id: Date.now(),
@@ -799,7 +1079,8 @@
                         status: "todo",
                         completed: false,
                         dueDate: this.newTask.dueDate || "2026-11-30",
-                        estimate: this.newTask.estimate.trim() || "1h"
+                        estimate: this.newTask.estimate.trim() || "1h",
+                        subtasks: []
                     };
 
                     if (this.backendOnline) {
@@ -820,20 +1101,24 @@
                         this.tasks = this.allLocalTasks.slice();
                     }
 
+                    this.saveLocalBackup();
                     this.newTask.title = "";
                 },
                 async toggleComplete(task) {
                     task.completed = !task.completed;
                     task.status = task.completed ? "done" : "todo";
+                    this.saveLocalBackup();
                     await this.syncTaskUpdate(task, { completed: task.completed, status: task.status });
                 },
                 async updateStatus(task) {
                     task.completed = (task.status === "done");
+                    this.saveLocalBackup();
                     await this.syncTaskUpdate(task, { completed: task.completed, status: task.status });
                 },
                 async moveTaskStatus(task, newStatus) {
                     task.status = newStatus;
                     task.completed = (newStatus === "done");
+                    this.saveLocalBackup();
                     await this.syncTaskUpdate(task, { completed: task.completed, status: task.status });
                 },
                 async syncTaskUpdate(task, updates) {
@@ -857,10 +1142,26 @@
                     this.tasks = this.tasks.filter(function(t) {
                         return (t._id || t.id) !== idToRemove;
                     });
+                    this.saveLocalBackup();
 
                     if (this.backendOnline) {
                         try {
                             await fetch(BACKEND_URL + "/tasks/" + idToRemove, {
+                                method: "DELETE"
+                            });
+                        } catch (err) {
+                            this.backendOnline = false;
+                        }
+                    }
+                },
+                async clearCompleted() {
+                    this.allLocalTasks = this.allLocalTasks.filter(function(t) { return !t.completed; });
+                    this.tasks = this.tasks.filter(function(t) { return !t.completed; });
+                    this.saveLocalBackup();
+
+                    if (this.backendOnline) {
+                        try {
+                            await fetch(BACKEND_URL + "/tasks/completed", {
                                 method: "DELETE"
                             });
                         } catch (err) {
