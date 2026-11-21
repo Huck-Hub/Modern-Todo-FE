@@ -613,14 +613,6 @@
                 <div class="metric-chip">Alarms Set: <strong style="color: var(--warning);">{{ activeAlarmsCount }}</strong></div>
 
                 <button
-                    class="btn-alarm-test"
-                    v-on:click="triggerTestAlarm"
-                    title="Test the Web Audio alarm chime and desktop notification right now"
-                >
-                    <i class="fa fa-bell" aria-hidden="true"></i> Test Alarm Sound
-                </button>
-
-                <button
                     class="btn-clear-done"
                     v-on:click="clearCompleted"
                     v-bind:disabled="completedCount === 0"
@@ -843,9 +835,6 @@
                     </div>
                     <div class="alarm-quick-btns">
                         <span style="font-size: 0.78rem; color: var(--text-secondary);">Quick preset:</span>
-                        <button class="view-btn active" style="background: var(--warning); color:#000;" v-on:click="setQuickAlarm(task, 0.17)">
-                            In 10 sec (Demo)
-                        </button>
                         <button class="view-btn" v-on:click="setQuickAlarm(task, 1)">+1 min</button>
                         <button class="view-btn" v-on:click="setQuickAlarm(task, 5)">+5 min</button>
                         <button class="view-btn" v-on:click="setQuickAlarm(task, 15)">+15 min</button>
